@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "methods-and-mastery-api"
+version = "0.1.0"
+description = "Methods and Mastery API"
+authors = ["Jacob Martin <jacobmartin221@gmail.com>"]
+readme = "README.md"
+packages = [
+  { include = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
