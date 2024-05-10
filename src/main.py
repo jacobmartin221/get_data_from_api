@@ -1,6 +1,5 @@
 from typing import Union, Optional
 import logging
-import json
 import time
 import sqlite3
 
@@ -14,11 +13,11 @@ logging.basicConfig(
 
 
 def retry_request(
-        num_retries: int = 5, 
-        success_list: list[int] = [200], 
-        starting_sleep_time: Optional[Union[int, float]] = 0.5,
-        **kwargs
-    ) -> requests.models.Response:
+    num_retries: int = 5, 
+    success_list: list[int] = [200], 
+    starting_sleep_time: Optional[Union[int, float]] = 0.5,
+    **kwargs
+) -> requests.models.Response:
     """Retry API request with a pause that grows exponentially with each 
     request until attempts are exhausted. 
     
@@ -67,7 +66,7 @@ def get_data(
     """
     base_url: str = "https://my-json-server.typicode.com"
     username: str = "jacobmartin221"
-    project: str = "methods_and_mastery_api"
+    project: str = "get_data_from_api"
     url: str = f"{base_url}/{username}/{project}/{endpoint}"
 
     logger.info("Making request")
@@ -156,10 +155,10 @@ def create_table_if_not_exists(cursor: sqlite3.Cursor, name: str) -> None:
     
 
 def upsert_data(
-        data: list[dict],
-        table_name: str, 
-        merge_column: str = "id"
-    ) -> None:
+    data: list[dict],
+    table_name: str, 
+    merge_column: str = "id"
+) -> None:
     """Upsert data into SQLite database. 
     
     Params:
@@ -169,7 +168,7 @@ def upsert_data(
             `merge_column = "id"`.
     """
     columns = data[0].keys()
-    columns_str: str = ", ".join(columns)
+    # columns_str: str = ", ".join(columns)
     placeholders: str = ", ".join("?" * len(columns))
     set_map: str = ", ".join(
         [
@@ -181,7 +180,7 @@ def upsert_data(
     try:
         logger.info("Connecting to database")
         conn: sqlite3.Connection = connect_to_database(
-            path="./methods_and_mastery.db"
+            path="./request_results.db"
         )
         cursor: sqlite3.Cursor = conn.cursor()
         logger.info(f"Creating table {table_name} if it does not exist yet")
@@ -223,8 +222,6 @@ def main(endpoint: str = "posts") -> None:
     # Get data from endpoint
     logger.info("Making request to the REST API")
     data: list[dict] = get_data(endpoint=endpoint)
-    # with open("./db.json", "r") as f:
-    #     data: list[dict] = json.load(f)["posts"]
     logger.info(f"Length of retrieved data: {len(data)}")
 
     # Add length field to check title length
