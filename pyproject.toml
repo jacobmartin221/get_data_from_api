@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "methods-and-mastery-api"
+name = "get-data-from-api"
 version = "0.1.0"
-description = "Methods and Mastery API"
+description = "Get results from mock API and upsert them into a SQLite database"
 authors = ["Jacob Martin <jacobmartin221@gmail.com>"]
 readme = "README.md"
 packages = [
@@ -12,6 +12,9 @@ packages = [
 python = "^3.12"
 requests = "^2.31.0"
 
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.2.0"
 
 [build-system]
 requires = ["poetry-core"]
