@@ -7,7 +7,7 @@ This option is best for simple local runs.
 1. Switch pyenv to 3.12: `pyenv local 3.12`
 1. Switch to Poetry shell: `poetry shell`
 1. Install dependencies: `poetry install`
-1. Run the script: `python src/main.py`
+1. Run the script: `poetry run python src/main.py`
 
 ### Option 2: Running in a Docker Container
 This route is recommended for production-grade deployments.

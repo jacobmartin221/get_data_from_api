@@ -187,6 +187,7 @@ def upsert_data(
         create_table_if_not_exists(cursor=cursor, name=table_name)
 
         logger.info(f"Upsert data to table {table_name}")
+        logger.info(f"Inserting/updating {len(values)} records")
         upsert_sql: str = f"""
             INSERT INTO {table_name} VALUES ({placeholders})
             ON CONFLICT({merge_column}) DO UPDATE SET {set_map};
@@ -244,8 +245,8 @@ def main(endpoint: str = "posts") -> None:
     upsert_data(
         data=filtered_data, table_name=endpoint, merge_column="id"
     )
-    logger.info("Process complete.")
-    
+    logger.info("Process complete!")
+
 
 if __name__ == "__main__":
     main()
